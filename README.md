@@ -17,14 +17,14 @@ This project includes modern **Login** and **Signup** pages designed with Tailwi
 
 ## 📂 Project Structure
 
-tailwind-auth-pages/
-├── index.html # Login page
-├── signup.html # Signup page
-├── css/
-│ └── styles.css # Tailwind CSS compiled file (if needed)
-├── js/
-│ └── main.js # Basic JS (form handling or validation)
-└── README.md
+tailwind-auth-pages/<br>
+├── index.html # Login page<br>
+├── signup.html # Signup page<br>
+├── css/<br>
+│ └── styles.css # Tailwind CSS compiled file (if needed)<br>
+├── js/<br>
+│ └── main.js # Basic JS (form handling or validation)<br>
+└── README.md<br>
 
 
 ---
@@ -41,7 +41,7 @@ tailwind-auth-pages/
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/tailwind-auth-pages.git
+git clone https://github.com/amanxploit/tailwind-auth-pages.git
 
 
 ---

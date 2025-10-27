@@ -42,7 +42,9 @@ tailwind-auth-pages/<br>
 ### 1️⃣ Clone the repository
 ```bash
 git clone https://github.com/amanxploit/tailwind-auth-pages.git
-
+cd tailwind-auth-pages.git
+---
+Open index.html in your browser 
 
 ---
 
@@ -53,14 +55,10 @@ git clone https://github.com/amanxploit/tailwind-auth-pages.git
 - **JavaScript (Vanilla JS)**
 
 ---
+```
 
 ## 🧰 Setup Instructions
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/your-username/tailwind-auth-pages.git
-cd tailwind-auth-pages
-```
 3️⃣ Open index.html in your browser
 
 You can use a local server (like VS Code Live Server) or simply open the file directly.

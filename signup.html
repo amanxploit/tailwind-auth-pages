@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .input-focus:focus {
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+            border-color: #2563eb;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #2563eb, #1d4ed8);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+        
+        .password-strength {
+            height: 3px;
+            border-radius: 1.5px;
+            transition: all 0.2s ease;
+        }
+        
+        .strength-weak { background: #ef4444; }
+        .strength-fair { background: #f59e0b; }
+        .strength-good { background: #3b82f6; }
+        .strength-strong { background: #10b981; }
+        
+        .text-2xs {
+            font-size: 0.65rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient flex items-center justify-center p-3">
+    <div class="w-full max-w-xs">
+        <div class="bg-white rounded-xl card-shadow p-4 fade-in">
+            <!-- Compact Header -->
+            <div class="text-center mb-4">
+                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-user-plus text-white text-sm"></i>
+                </div>
+                <h1 class="text-lg font-semibold text-gray-800">Create Account</h1>
+                <p class="text-gray-500 text-2xs mt-0.5">Join us in seconds</p>
+            </div>
+            
+            <!-- Compact Signup Form using Grid -->
+            <form id="signupForm" class="grid grid-cols-2 gap-2">
+                <!-- Full Name - Full Width -->
+                <div class="col-span-2 fade-in" style="animation-delay: 0.1s">
+                    <label class="block text-gray-700 text-2xs font-medium mb-1" for="fullName">Full Name</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400 text-xs"></i>
+                        </div>
+                        <input id="fullName" type="text" class="input-focus w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none" placeholder="Your name" required>
+                    </div>
+                    <p id="nameError" class="text-red-500 text-2xs mt-0.5 hidden">Name required</p>
+                </div>
+                
+                <!-- Email - Full Width -->
+                <div class="col-span-2 fade-in" style="animation-delay: 0.2s">
+                    <label class="block text-gray-700 text-2xs font-medium mb-1" for="email">Email</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400 text-xs"></i>
+                        </div>
+                        <input id="email" type="email" class="input-focus w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none" placeholder="your@email.com" required>
+                    </div>
+                    <p id="emailError" class="text-red-500 text-2xs mt-0.5 hidden">Valid email required</p>
+                </div>
+                
+                <!-- Password - Full Width -->
+                <div class="col-span-2 fade-in" style="animation-delay: 0.3s">
+                    <label class="block text-gray-700 text-2xs font-medium mb-1" for="password">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400 text-xs"></i>
+                        </div>
+                        <input id="password" type="password" class="input-focus w-full pl-8 pr-8 py-2 text-xs rounded-lg bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none" placeholder="Create password" required minlength="6">
+                        <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-2.5 flex items-center">
+                            <i class="fas fa-eye text-gray-400 text-xs"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Compact Password Strength -->
+                    <div class="mt-1.5">
+                        <div class="flex justify-between mb-0.5">
+                            <span class="text-2xs text-gray-500">Strength</span>
+                            <span id="strengthText" class="text-2xs font-medium text-red-500">Weak</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1">
+                            <div id="passwordStrength" class="password-strength strength-weak w-1/4"></div>
+                        </div>
+                    </div>
+                    <p id="passwordError" class="text-red-500 text-2xs mt-0.5 hidden">Min 6 characters</p>
+                </div>
+                
+                <!-- Confirm Password - Full Width -->
+                <div class="col-span-2 fade-in" style="animation-delay: 0.4s">
+                    <label class="block text-gray-700 text-2xs font-medium mb-1" for="confirmPassword">Confirm Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400 text-xs"></i>
+                        </div>
+                        <input id="confirmPassword" type="password" class="input-focus w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none" placeholder="Confirm password" required>
+                    </div>
+                    <p id="confirmPasswordError" class="text-red-500 text-2xs mt-0.5 hidden">Passwords don't match</p>
+                </div>
+                
+                <!-- Terms Agreement - Full Width -->
+                <div class="col-span-2 flex items-start mt-1 fade-in" style="animation-delay: 0.5s">
+                    <input id="terms" type="checkbox" class="h-3 w-3 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                    <label for="terms" class="ml-1.5 block text-2xs text-gray-700 leading-tight">
+                        I agree to the 
+                        <a href="#" class="text-blue-600 hover:text-blue-800">Terms</a> 
+                        & 
+                        <a href="#" class="text-blue-600 hover:text-blue-800">Privacy</a>
+                    </label>
+                </div>
+                <p id="termsError" class="col-span-2 text-red-500 text-2xs mt-0.5 hidden">Must agree to terms</p>
+                
+                <!-- Submit Button - Full Width -->
+                <div class="col-span-2 fade-in" style="animation-delay: 0.6s">
+                    <button type="submit" id="signupButton" class="btn-primary w-full py-2 px-4 rounded-lg text-white text-xs font-medium shadow mt-2">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Compact Login Link -->
+            <div class="mt-4 text-center fade-in" style="animation-delay: 0.7s">
+                <p class="text-2xs text-gray-600">
+                    Have an account?
+                    <a href="index.html" class="font-medium text-blue-600 hover:text-blue-800 transition-colors">Sign in</a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Compact Security Note -->
+        <div class="mt-3 text-center">
+            <p class="text-2xs text-white opacity-80">
+                <i class="fas fa-shield-alt mr-1"></i> Secured & encrypted
+            </p>
+        </div>
+    </div>
+
+    <script src="./js/main.js" type="text/javascript"></script>
+</body>
+</html>
